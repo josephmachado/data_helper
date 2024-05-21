@@ -1,6 +1,8 @@
+-- TODO
 -- Add conceptual data flow
 -- Add ERD as document
--- Add context
+-- Add Business flow documentation
+-- Add metric definition with additive and non additive metrics
 
 -- Create schema if not exists and set the context to the rainforest schema
 CREATE SCHEMA IF NOT EXISTS rainforest;

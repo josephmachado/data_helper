@@ -3,20 +3,17 @@ from llama_index.core import (
     load_index_from_storage,
 )
 
-PERSIST_DIR = "./storage"
-# load the existing index
-storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
-index = load_index_from_storage(storage_context)
+def get_index():
+    PERSIST_DIR = "./storage"
+    storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
+    return load_index_from_storage(storage_context)
 
-# Get input from the user
-user_input = input("Please enter your question: ")
-user_input = f"Write a SQL query to do this: {user_input}"
-# Print the input back to the user
-print("You question:", user_input)
+def get_response(index, user_input):
+    query_engine = index.as_query_engine()
+    return query_engine.query(user_input)
 
-# ask OPEN AI API
-query_engine = index.as_query_engine()
-response = query_engine.query(user_input)
-
-print(f"Response: {response}")
-
+if __name__ == '__main__':
+    user_input = input("Please enter your question: ")
+    user_input = f"Write a SQL query to do this: {user_input}"
+    print("You question:", user_input)
+    print(f"Response is {get_response(get_index(), user_input)}")

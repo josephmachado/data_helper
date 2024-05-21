@@ -1,0 +1,242 @@
+{
+  "docstore/metadata": {
+    "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa": {
+      "doc_hash": "8a5a6dd08cfa260d2997f90df0e411c56bbf5390a0e5f80cad49720662297400"
+    },
+    "7f2f5b30-66e1-45a2-889c-2caef8b0ac7f": {
+      "doc_hash": "d919261e8b9d27dce1877052719aa1e6a9f337d465784f9802897b4dddae9e73",
+      "ref_doc_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa"
+    },
+    "4c70f7be-ddf2-4f32-974a-30be60a22353": {
+      "doc_hash": "36bb7187b40e5c32dbb0458b572637f7415902a5c291af55d942753e173bc130",
+      "ref_doc_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa"
+    },
+    "c57adfb2-e5bf-4f7c-96db-4a1e37161125": {
+      "doc_hash": "450d95823c093437f220849b264a170776b964a1650740d72bec39ddcfa8a422",
+      "ref_doc_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa"
+    }
+  },
+  "docstore/data": {
+    "7f2f5b30-66e1-45a2-889c-2caef8b0ac7f": {
+      "__data__": {
+        "id_": "7f2f5b30-66e1-45a2-889c-2caef8b0ac7f",
+        "embedding": null,
+        "metadata": {
+          "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+          "file_name": "data_schema.sql",
+          "file_type": "application/sql",
+          "file_size": 10704,
+          "creation_date": "2024-05-21",
+          "last_modified_date": "2024-05-21"
+        },
+        "excluded_embed_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "excluded_llm_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "relationships": {
+          "1": {
+            "node_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa",
+            "node_type": "4",
+            "metadata": {
+              "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+              "file_name": "data_schema.sql",
+              "file_type": "application/sql",
+              "file_size": 10704,
+              "creation_date": "2024-05-21",
+              "last_modified_date": "2024-05-21"
+            },
+            "hash": "8a5a6dd08cfa260d2997f90df0e411c56bbf5390a0e5f80cad49720662297400",
+            "class_name": "RelatedNodeInfo"
+          },
+          "3": {
+            "node_id": "4c70f7be-ddf2-4f32-974a-30be60a22353",
+            "node_type": "1",
+            "metadata": {},
+            "hash": "97e8b070e3ac7835fbba1cd6627b4c0b327027577f83d0f879e3ea034ac8cc24",
+            "class_name": "RelatedNodeInfo"
+          }
+        },
+        "text": "-- TODO\n-- Add conceptual data flow\n-- Add ERD as document\n-- Add Business flow documentation\n-- Add metric definition with additive and non additive metrics\n\n-- Create schema if not exists and set the context to the rainforest schema\nCREATE SCHEMA IF NOT EXISTS rainforest;\nUSE rainforest;\n\n-- Drop and create dim_buyer table\n-- Table 'dim_buyer' (alias: Buyer, Customer, Client) stores detailed buyer information. Grain: individual buyer, Unique key: buyer_id\nDROP TABLE IF EXISTS dim_buyer;\nCREATE TABLE dim_buyer (\n    buyer_id INT, -- Unique identifier for the buyer (alias: BuyerID, CustomerID, ClientID)\n    user_id INT, -- Identifier linking to the user account (alias: UserID, AccountID)\n    username VARCHAR(255), -- Username of the buyer (alias: UserName, Nickname)\n    email VARCHAR(255), -- Email address of the buyer (alias: EmailAddress, ContactEmail)\n    is_active BOOLEAN, -- Status to check if the buyer's account is active (alias: ActiveStatus, IsActive)\n    first_time_purchased_timestamp TIMESTAMP, -- Timestamp of the buyer's first purchase (alias: FirstPurchase, FirstBuyDate)\n    created_ts TIMESTAMP, -- Timestamp when the buyer record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the buyer record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the buyer record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create dim_seller table\n-- Table 'dim_seller' (alias: Seller, Vendor, Merchant) stores detailed seller information. Grain: individual seller, Unique key: seller_id\nDROP TABLE IF EXISTS dim_seller;\nCREATE TABLE dim_seller (\n    seller_id INT, -- Unique identifier for the seller (alias: SellerID, VendorID)\n    user_id INT, -- Identifier linking to the user account (alias: UserID, MerchantAccount)\n    username VARCHAR(255), -- Username of the seller (alias: UserName, VendorName)\n    email VARCHAR(255), -- Email address of the seller (alias: EmailAddress, SellerEmail)\n    is_active BOOLEAN, -- Status to check if the seller's account is active (alias: ActiveStatus, IsActive)\n    first_time_sold_timestamp TIMESTAMP, -- Timestamp of the seller's first sale (alias: FirstSaleDate, InitialSaleTime)\n    created_ts TIMESTAMP, -- Timestamp when the seller record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the seller record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the seller record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create dim_product table\n-- Table 'dim_product' (alias: Product, Item, Goods) stores detailed product information. Grain: individual product, Unique key: product_id\nDROP TABLE IF EXISTS dim_product;\nCREATE TABLE dim_product (\n    product_id INT, -- Unique identifier for the product (alias: ProductID, ItemID)\n    name VARCHAR(255), -- Name of the product (alias: ProductName, ItemName)\n    description VARCHAR(255), -- Description of the product (alias: Description, Details)\n    price DECIMAL(10, 2), -- Price of the product (alias: Price, Cost)\n    brand_id INT, -- Identifier for the brand of the product (alias: BrandID, Brand)\n    brand_name VARCHAR(255), -- Name of the brand (alias: BrandName, Brand)\n    manufacturer_id INT, -- Identifier for the manufacturer of the product (alias: ManufacturerID, MakerID)\n    manufacturer_name VARCHAR(255), -- Name of the manufacturer (alias: ManufacturerName, Maker)\n    review_count INT, -- Number of reviews for the product (alias: Reviews, FeedbackCount)\n    avg_rating DECIMAL(3, 2), -- Average rating of the product (alias: AverageRating, Rating)\n    created_ts TIMESTAMP, -- Timestamp when the product record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the product record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the product record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create dim_category table\n-- Table 'dim_category' (alias: Category, ProductCategory, Section) stores detailed category information.",
+        "start_char_idx": 0,
+        "end_char_idx": 4177,
+        "text_template": "{metadata_str}\n\n{content}",
+        "metadata_template": "{key}: {value}",
+        "metadata_seperator": "\n",
+        "class_name": "TextNode"
+      },
+      "__type__": "1"
+    },
+    "4c70f7be-ddf2-4f32-974a-30be60a22353": {
+      "__data__": {
+        "id_": "4c70f7be-ddf2-4f32-974a-30be60a22353",
+        "embedding": null,
+        "metadata": {
+          "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+          "file_name": "data_schema.sql",
+          "file_type": "application/sql",
+          "file_size": 10704,
+          "creation_date": "2024-05-21",
+          "last_modified_date": "2024-05-21"
+        },
+        "excluded_embed_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "excluded_llm_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "relationships": {
+          "1": {
+            "node_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa",
+            "node_type": "4",
+            "metadata": {
+              "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+              "file_name": "data_schema.sql",
+              "file_type": "application/sql",
+              "file_size": 10704,
+              "creation_date": "2024-05-21",
+              "last_modified_date": "2024-05-21"
+            },
+            "hash": "8a5a6dd08cfa260d2997f90df0e411c56bbf5390a0e5f80cad49720662297400",
+            "class_name": "RelatedNodeInfo"
+          },
+          "2": {
+            "node_id": "7f2f5b30-66e1-45a2-889c-2caef8b0ac7f",
+            "node_type": "1",
+            "metadata": {
+              "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+              "file_name": "data_schema.sql",
+              "file_type": "application/sql",
+              "file_size": 10704,
+              "creation_date": "2024-05-21",
+              "last_modified_date": "2024-05-21"
+            },
+            "hash": "d919261e8b9d27dce1877052719aa1e6a9f337d465784f9802897b4dddae9e73",
+            "class_name": "RelatedNodeInfo"
+          },
+          "3": {
+            "node_id": "c57adfb2-e5bf-4f7c-96db-4a1e37161125",
+            "node_type": "1",
+            "metadata": {},
+            "hash": "41616d98faaaef84d5937b5c4fea1c0fc87be4b883e44207fc6dc4eb355ae76b",
+            "class_name": "RelatedNodeInfo"
+          }
+        },
+        "text": "Grain: individual category, Unique key: category_id\nDROP TABLE IF EXISTS dim_category;\nCREATE TABLE dim_category (\n    category_id INT, -- Unique identifier for the category (alias: CategoryID, SectionID)\n    name VARCHAR(255), -- Name of the category (alias: CategoryName, SectionName)\n    created_ts TIMESTAMP, -- Timestamp when the category record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the category record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the category record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create dim_date table\n-- Table 'dim_date' (alias: Date Dimension, Calendar) provides a comprehensive breakdown of dates for reporting purposes. Grain: individual date, Unique key: date_key\nDROP TABLE IF EXISTS dim_date;\nCREATE TABLE dim_date (\n    date_key DATE, -- Key for the date, typically formatted as YYYYMMDD (alias: DateKey, CalendarKey)\n    date DATE, -- Actual date (alias: ActualDate, FullDate)\n    year INT, -- Year extracted from the date (alias: Year)\n    quarter INT, -- Quarter extracted from the date (alias: Quarter)\n    month INT, -- Month extracted from the date (alias: Month)\n    day INT, -- Day extracted from the date (alias: Day)\n    day_of_week INT, -- Day of the week extracted from the date (alias: DayOfWeek, Weekday)\n    day_name VARCHAR(255), -- Name of the day (alias: DayName, WeekdayName)\n    day_of_month INT, -- Day of the month extracted from the date (alias: DayOfMonth)\n    day_of_quarter INT, -- Day of the quarter extracted from the date (alias: DayOfQuarter)\n    day_of_year INT, -- Day of the year extracted from the date (alias: DayOfYear)\n    week_of_month INT, -- Week of the month extracted from the date (alias: WeekOfMonth)\n    week_of_year INT, -- Week of the year extracted from the date (alias: WeekOfYear)\n    month_name VARCHAR(255), -- Name of the month (alias: MonthName)\n    year_month INT, -- Year and month combination extracted from the date (alias: YearMonth)\n    year_quarter INT -- Year and quarter combination extracted from the date (alias: YearQuarter)\n);\n\n-- Drop and create seller_x_product table\n-- Table 'seller_x_product' (alias: Seller-Product Link, Vendor Items) stores relationships between sellers and products. Grain: seller-product pair, no unique single column key\nDROP TABLE IF EXISTS seller_x_product;\nCREATE TABLE seller_x_product (\n    seller_id INT, -- Identifier for the seller (alias: SellerID, VendorID)\n    product_id INT -- Identifier for the product (alias: ProductID, ItemID)\n);\n\n-- Drop and create product_x_category table\n-- Table 'product_x_category' (alias: Product-Category Link, Item Classification) stores relationships between products and categories. Grain: product-category pair, no unique single column key\nDROP TABLE IF EXISTS product_x_category;\nCREATE TABLE product_x_category (\n    product_id INT, -- Identifier for the product (alias: ProductID, ItemID)\n    category_id INT -- Identifier for the category (alias: CategoryID, SectionID)\n);\n\n-- Drop and create fact_orders table\n-- Table 'fact_orders' (alias: Orders, Transactions) captures sales transactions. Grain: individual order, Unique key: order_id\nDROP TABLE IF EXISTS fact_orders;\nCREATE TABLE fact_orders (\n    order_id INT, -- Unique identifier for the order (alias: OrderID, TransactionID)\n    buyer_id INT, -- Identifier for the buyer associated with the order (alias: BuyerID, CustomerID)\n    order_ts TIMESTAMP, -- Timestamp of when the order was placed (alias: OrderTime, TransactionTime)\n    total_price DECIMAL(10, 2), -- Total price of the order (alias: TotalAmount, SaleTotal)\n    created_ts TIMESTAMP, -- Timestamp when the order record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the order record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the order record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create fact_order_items table\n-- Table 'fact_order_items' (alias: Order Details, Order Line Items) captures detailed line items within each order.",
+        "start_char_idx": 4178,
+        "end_char_idx": 8364,
+        "text_template": "{metadata_str}\n\n{content}",
+        "metadata_template": "{key}: {value}",
+        "metadata_seperator": "\n",
+        "class_name": "TextNode"
+      },
+      "__type__": "1"
+    },
+    "c57adfb2-e5bf-4f7c-96db-4a1e37161125": {
+      "__data__": {
+        "id_": "c57adfb2-e5bf-4f7c-96db-4a1e37161125",
+        "embedding": null,
+        "metadata": {
+          "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+          "file_name": "data_schema.sql",
+          "file_type": "application/sql",
+          "file_size": 10704,
+          "creation_date": "2024-05-21",
+          "last_modified_date": "2024-05-21"
+        },
+        "excluded_embed_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "excluded_llm_metadata_keys": [
+          "file_name",
+          "file_type",
+          "file_size",
+          "creation_date",
+          "last_modified_date",
+          "last_accessed_date"
+        ],
+        "relationships": {
+          "1": {
+            "node_id": "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa",
+            "node_type": "4",
+            "metadata": {
+              "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+              "file_name": "data_schema.sql",
+              "file_type": "application/sql",
+              "file_size": 10704,
+              "creation_date": "2024-05-21",
+              "last_modified_date": "2024-05-21"
+            },
+            "hash": "8a5a6dd08cfa260d2997f90df0e411c56bbf5390a0e5f80cad49720662297400",
+            "class_name": "RelatedNodeInfo"
+          },
+          "2": {
+            "node_id": "4c70f7be-ddf2-4f32-974a-30be60a22353",
+            "node_type": "1",
+            "metadata": {
+              "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+              "file_name": "data_schema.sql",
+              "file_type": "application/sql",
+              "file_size": 10704,
+              "creation_date": "2024-05-21",
+              "last_modified_date": "2024-05-21"
+            },
+            "hash": "36bb7187b40e5c32dbb0458b572637f7415902a5c291af55d942753e173bc130",
+            "class_name": "RelatedNodeInfo"
+          }
+        },
+        "text": "Grain: individual order item, Unique key: order_item_id\nDROP TABLE IF EXISTS fact_order_items;\nCREATE TABLE fact_order_items (\n    order_item_id INT, -- Unique identifier for the order item (alias: OrderItemID, LineItemID)\n    order_id INT, -- Identifier for the order associated with this item (alias: OrderID, TransactionID)\n    product_id INT, -- Identifier for the product associated with this item (alias: ProductID, ItemID)\n    seller_id INT, -- Identifier for the seller of this item (alias: SellerID, VendorID)\n    quantity INT, -- Number of units of the product ordered (alias: Quantity, Amount)\n    base_price DECIMAL(10, 2), -- Base price of a single unit of the product (alias: UnitPrice, PricePerItem)\n    tax DECIMAL(10, 2), -- Tax amount for this item (alias: TaxAmount, Tax)\n    created_ts TIMESTAMP, -- Timestamp when the order item record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the order item record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the order item record was last updated (alias: UpdateTime, LastModified)\n);\n\n-- Drop and create fact_clickstream_events table\n-- Table 'fact_clickstream_events' (alias: User Events, Clickstream Data) stores user interaction events on the platform. Grain: individual event, Unique key: event_id\nDROP TABLE IF EXISTS fact_clickstream_events;\nCREATE TABLE fact_clickstream_events (\n    event_id INT, -- Unique identifier for the event (alias: EventID, ClickID)\n    user_id INT, -- Identifier for the user who triggered the event (alias: UserID, VisitorID)\n    event_type VARCHAR(255), -- Type of event (alias: EventType, Action)\n    product_id INT, -- Identifier for the product involved in the event (optional) (alias: ProductID, ItemID)\n    order_id INT, -- Identifier for the order involved in the event (optional) (alias: OrderID, TransactionID)\n    timestamp TIMESTAMP, -- Timestamp of when the event occurred (alias: EventTime, Timestamp)\n    created_ts TIMESTAMP, -- Timestamp when the event record was created (alias: CreationTime, RecordCreated)\n    last_updated_by INT, -- Last user/admin who updated the event record (alias: UpdatedBy, ModifiedBy)\n    last_updated_ts TIMESTAMP -- Timestamp when the event record was last updated (alias: UpdateTime, LastModified)\n);",
+        "start_char_idx": 8365,
+        "end_char_idx": 10702,
+        "text_template": "{metadata_str}\n\n{content}",
+        "metadata_template": "{key}: {value}",
+        "metadata_seperator": "\n",
+        "class_name": "TextNode"
+      },
+      "__type__": "1"
+    }
+  },
+  "docstore/ref_doc_info": {
+    "2d62b7ea-8a64-47d1-81c3-9aac5e76d6fa": {
+      "node_ids": [
+        "7f2f5b30-66e1-45a2-889c-2caef8b0ac7f",
+        "4c70f7be-ddf2-4f32-974a-30be60a22353",
+        "c57adfb2-e5bf-4f7c-96db-4a1e37161125"
+      ],
+      "metadata": {
+        "file_path": "/home/josephkevinmachado/code/data_helper/data/data_schema.sql",
+        "file_name": "data_schema.sql",
+        "file_type": "application/sql",
+        "file_size": 10704,
+        "creation_date": "2024-05-21",
+        "last_modified_date": "2024-05-21"
+      }
+    }
+  }
+}

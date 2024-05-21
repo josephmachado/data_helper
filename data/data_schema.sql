@@ -2,7 +2,6 @@
 -- Add ERD as document
 -- Add context
 
-
 -- Create schema if not exists and set the context to the rainforest schema
 CREATE SCHEMA IF NOT EXISTS rainforest;
 USE rainforest;

@@ -4,17 +4,30 @@ from enum import Enum
 from index.index_manager import create_index, get_index
 from query.query_manager import print_response
 
+
 class OperationType(Enum):
     INDEX = "index"
     INDEX_AND_QUERY = "index_and_query"
     QUERY = "query"
 
+
 def run_pipeline():
-    parser = argparse.ArgumentParser(description="Run indexing and querying with Llama Index.")
-    parser.add_argument("operation", type=str, choices=[e.name for e in OperationType],
-                        help="Operation to perform: INDEX, INDEX_AND_QUERY, QUERY")
-    parser.add_argument("--query-type", type=str, choices=["custom", "generic"], default="generic",
-                        help="Type of query pipeline to use: custom or generic")
+    parser = argparse.ArgumentParser(
+        description="Run indexing and querying with Llama Index."
+    )
+    parser.add_argument(
+        "operation",
+        type=str,
+        choices=[e.name for e in OperationType],
+        help="Operation to perform: INDEX, INDEX_AND_QUERY, QUERY",
+    )
+    parser.add_argument(
+        "--query-type",
+        type=str,
+        choices=["custom", "generic"],
+        default="generic",
+        help="Type of query pipeline to use: custom or generic",
+    )
     parser.add_argument("query", type=str, help="Query string for querying")
 
     args = parser.parse_args()

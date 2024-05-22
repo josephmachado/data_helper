@@ -4,9 +4,9 @@ Code for blog at: WIP
 
 ### Prerequisite
 
-1. Python
-2. git
-3. Open AI API Key
+1. [Python 3.10+](https://www.python.org/downloads/)
+2. [git](https://git-scm.com/)
+3. [Open AI API Key](https://platform.openai.com/api-keys)
 4. [Poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
 
 We will run our code in a python virtual environment as shown below:
@@ -35,5 +35,5 @@ python run_code.py QUERY "for every seller, show me a monthly report of the numb
 2. Add metadata with table and metric aliases
 3. Use Vector store with persistence
 4. Expand to add business domain knowledge, data generation process, metric definitions.
-
+u
 TL;DR: Ways to get more relevant and specific information to the LLM API

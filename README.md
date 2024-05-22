@@ -35,5 +35,5 @@ python run_code.py QUERY "for every seller, show me a monthly report of the numb
 2. Add metadata with table and metric aliases
 3. Use Vector store with persistence
 4. Expand to add business domain knowledge, data generation process, metric definitions.
-u
+
 TL;DR: Ways to get more relevant and specific information to the LLM API

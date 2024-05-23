@@ -1,39 +1,54 @@
-Code for blog at: WIP
+Code for blog at: [Democratize Data Access with RAGS](https://www.startdataengineering.com/post/data-democratize-llm/)
 
-## Setup
+## Set up
 
-### Prerequisite
+We will use [LlamaIndex](https://docs.llamaindex.ai/en/stable/) to build our RAG pipeline. The concepts used to RAG pipelines in general.
+
+**GitHub Repo**: [Data Helper](https://github.com/josephmachado/data_helper/tree/main)
+
+### Pre-requisite
 
 1. [Python 3.10+](https://www.python.org/downloads/)
 2. [git](https://git-scm.com/)
 3. [Open AI API Key](https://platform.openai.com/api-keys)
 4. [Poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
 
-We will run our code in a python virtual environment as shown below:
+### Demo
+
+We will clone the repo setup poetry shell as shown below:
 
 ```bash
+git clone https://github.com/josephmachado/data_helper.git
+cd data_helper
 poetry install
 poetry shell # activate the virtual env
-```
 
-## Run code
-
-To run the code, please set your OPEN AI API key as shown below
-
-```bash
+# To run the code, please set your OPEN AI API key as shown below
 export OPENAI_API_KEY=your-key-here
 python run_code.py INDEX # Create an index with data from ./data folder
 python run_code.py QUERY "show me for each buyers what date they made their first purchase"
 # The above command uses the already existing index to make a request to LLM API to get results
+# The code will return a SQL query with DuckDB format
 
 python run_code.py QUERY "for every seller, show me a monthly report of the number of unique products that they sold, avg cost per product, max/min value of product purchased that month"
+# The code will return a SQL query with DuckDB format
 ```
 
-## Next steps
+## Next Steps
 
-1. Experiment with splitting document into individual DDL nodes
-2. Add metadata with table and metric aliases
-3. Use Vector store with persistence
-4. Expand to add business domain knowledge, data generation process, metric definitions.
+1. Evaluate results and tune the pipeline
+2. Add observation system
+3. Monitor API costs
+4. Add additional documentation as input
+5. Explore other use cases such as RAGs for onboarding, DE training tool, etc
 
-TL;DR: Ways to get more relevant and specific information to the LLM API
+## Further reading
+
+1. [Production RAG tips](https://www.youtube.com/watch?v=Zj5RCweUHIk)
+2. [Advanced RAG tuning](https://docs.llamaindex.ai/en/stable/optimizing/production_rag/)
+3. [What is a datawarehouse](https://www.startdataengineering.com/post/what-is-a-data-warehouse/)
+4. [Conceptual data model](https://www.startdataengineering.com/post/n-steps-avoid-messy-dw/#21-understand-the-business)
+
+## References
+
+1. [LlamaIndex docs](https://docs.llamaindex.ai/en/stable/)

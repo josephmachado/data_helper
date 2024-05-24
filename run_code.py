@@ -28,7 +28,7 @@ def run_pipeline():
         default="generic",
         help="Type of query pipeline to use: custom or generic",
     )
-    parser.add_argument("query", type=str, help="Query string for querying")
+    parser.add_argument("--query", type=str, help="Query string for querying", default="")
 
     args = parser.parse_args()
     operation = OperationType[args.operation.upper()]

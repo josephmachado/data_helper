@@ -26,11 +26,11 @@ poetry shell # activate the virtual env
 # To run the code, please set your OPEN AI API key as shown below
 export OPENAI_API_KEY=your-key-here
 python run_code.py INDEX # Create an index with data from ./data folder
-python run_code.py QUERY "show me for each buyers what date they made their first purchase"
+python run_code.py QUERY --query "show me for each buyers what date they made their first purchase"
 # The above command uses the already existing index to make a request to LLM API to get results
 # The code will return a SQL query with DuckDB format
 
-python run_code.py QUERY "for every seller, show me a monthly report of the number of unique products that they sold, avg cost per product, max/min value of product purchased that month"
+python run_code.py QUERY --query "for every seller, show me a monthly report of the number of unique products that they sold, avg cost per product, max/min value of product purchased that month"
 # The code will return a SQL query with DuckDB format
 ```
 
